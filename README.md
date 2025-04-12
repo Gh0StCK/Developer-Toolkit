@@ -1,60 +1,82 @@
 Tell me thanks.
 <p><a href="https://www.buymeacoffee.com/gh0stck29u"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a></p>
-🧩 Developer Toolkit for Blender
-Developer Toolkit is a convenient utility for Blender addon developers, allowing you to:
+# 🧩 Developer Toolkit for Blender
 
-🔹 Quickly add and track addons from local source folders
-🔹 Reload addons with automatic .zip packaging
-🔹 Manage addon paths, module names, and activation states
-🔹 Reload multiple addons at once
-🔹 Reload even if the addon has errors (skip unregister)
-🔹 Eliminate the need for manual zipping and reinstalling during development
+**Developer Toolkit** — это удобный инструмент для разработчиков аддонов Blender, который позволяет:
 
-📦 Features
-Feature	Description
-➕ Add Addon	Enter module name and path to add an addon to the list
-🔁 Reload Addon	Automatically creates a .zip, reinstalls and reactivates the addon
-⚙️ Auto Save	Automatically saves your .blend file before reloading (optional)
-🧼 Clear Console	Clears the Python console before reload (optional)
-🧠 Batch Reloading	Reload all selected addons with one click
-✏️ Edit Path & Name	Easily rename or relocate source directory
-👁 UI Refresh	Forces UI refresh to reflect changes immediately
-✅ Active Status Indicator	Shows if the addon is currently active
-🧩 Compatibility	Supports Blender 3.x – 4.4 (and above)
-🚀 Installation
-Download the .zip archive from this repository, or install directly in Blender:
+- 🔹 Быстро добавлять и отслеживать аддоны из локальных папок
+- 🔁 Перезагружать аддоны с автоматическим .zip-пакетированием
+- ⚙️ Управлять путями, названиями модулей и статусами активации
+- 🧠 Перезагружать сразу несколько аддонов одной кнопкой
+- ❌ Перезагружать даже при ошибках (с пропуском `unregister`)
+- 🧼 Избавиться от ручного zip и переустановки при разработке
 
-Edit > Preferences > Add-ons > Install...
+---
 
-Choose developer_toolkit.zip
+## 📦 Возможности
 
-Enable the checkbox next to Developer Toolkit
+| 🔧 Функция             | 📝 Описание                                                                 |
+|------------------------|-----------------------------------------------------------------------------|
+| ➕ **Add Addon**        | Укажи путь и имя модуля — аддон появится в списке                           |
+| 🔁 **Reload Addon**     | Автоматически создаёт `.zip`, переустанавливает и активирует аддон         |
+| ⚙️ **Auto Save**        | Опционально сохраняет `.blend` перед перезагрузкой                         |
+| 🧼 **Clear Console**    | Очищает консоль Python перед перезагрузкой                                 |
+| 🧠 **Batch Reloading**  | Перезагружает все выбранные аддоны одной кнопкой                           |
+| ✏️ **Edit Path & Name** | Позволяет переименовать или изменить путь к исходникам                     |
+| 👁 **UI Refresh**       | Принудительно обновляет интерфейс                                          |
+| ✅ **Active Status**    | Показывает, активен ли аддон сейчас                                         |
 
-Open the N-Panel > Dev tab in the 3D Viewport
+---
 
-📋 How to Use
-🔹 Adding an Addon
-Click "Add Addon"
+## 🧩 Совместимость
 
-Select the folder containing __init__.py
+- ✅ Blender **3.x – 4.4+**
+- 🛠 Разработано для локальной работы с исходниками
+- 💼 Подходит как для одного аддона, так и для пачки в разработке
 
-The module name will be auto-detected (or enter it manually)
+---
 
-Confirm — the addon will be added to the list
+## 🚀 Установка
 
-🔹 Reloading
-Click the 🔁 button or "Reload"
+1. 📥 Скачай `.zip`-архив из [репозитория](#)  
+2. В Blender открой `Edit > Preferences > Add-ons > Install...`  
+3. Выбери `developer_toolkit.zip`  
+4. Активируй чекбокс **Developer Toolkit**  
+5. В 3D Viewport открой **N-Panel > вкладка Dev**
 
-Optionally, use "Reload without unregistering" to avoid issues during errors
+---
 
-🔹 Batch Reloading
-Check multiple addons in the list
+## 📋 Как использовать
 
-Click Reload Selected
+### 🔹 Добавление аддона
+- Нажми кнопку **Add Addon**
+- Укажи путь к папке, содержащей `__init__.py`
+- Имя модуля определится автоматически (или введи вручную)
+- Подтверди — аддон добавится в список
 
-🛠 Support & Feedback
-Found a bug or have an idea?
-Please open an issue or submit a pull request — all contributions are welcome!
+### 🔁 Перезагрузка
+- Нажми кнопку **🔁 Reload**  
+- Можно выбрать **"Reload without unregistering"**, чтобы избежать сбоев при ошибках
 
-📜 License
-MIT License — Free to use and modify with attribution.
+### 🧠 Массовая перезагрузка
+- Отметь несколько аддонов галочками
+- Нажми **Reload Selected**
+
+---
+
+## 🛠 Поддержка и обратная связь
+
+Нашёл баг или хочешь предложить улучшение?  
+📬 Открой [issue](https://github.com/твоя-ссылка/issues) или отправь pull request — сообщество будет признательно!
+
+---
+
+## 📜 Лицензия
+
+**MIT License** — свободно используйте, модифицируйте, распространяйте с указанием автора.
+
+---
+
+💡 _Разработка аддонов ещё никогда не была такой быстрой и удобной._
+
+
