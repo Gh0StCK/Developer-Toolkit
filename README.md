@@ -19,7 +19,7 @@ Tell me thanks.
 - Added a single operator that directly opens the file browser  
 - Addon is now registered immediately after selecting `__init__.py`
 
-**Fix: Improved Language Detection and UI Localization
+**Fix: Improved Language Detection and UI Localization**
 
 - The addon now correctly follows Blender's language settings: system locale is used only when the interface language is **Automatic** and translations are enabled.  
 - If interface translations are disabled, the addon always stays in English for consistency.  
