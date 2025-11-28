@@ -22,10 +22,6 @@ Tell me thanks.
 **Fix: Improved Language Detection and UI Localization**
 
 - The addon now correctly follows Blender's language settings: system locale is used only when the interface language is **Automatic** and translations are enabled.  
-- If interface translations are disabled, the addon always stays in English for consistency.  
-- Explicit language choices (**English** / **Russian**) fully override automatic detection.  
-- All UI labels and operator messages now reliably switch between languages based on the active Blender settings.
-
 ---
 
 ## 📦 Features
