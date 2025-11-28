@@ -14,7 +14,6 @@ import sys
 import zipfile
 import tempfile
 import datetime
-import time
 import pathlib
 
 from bpy.props import (
@@ -148,76 +147,49 @@ class DEV_OT_AddAddon(Operator):
     bl_idname = "dev.add_addon"
     bl_label = "Добавить аддон"
     bl_options = {'REGISTER', 'UNDO'}
-
-    addon_module: StringProperty(
-        name="Имя модуля",
-        description="Имя модуля аддона (напр. 'AutoApplyScale')",
+    filepath: StringProperty(
+        name="Файл аддона",
+        description="Выберите __init__.py или папку аддона",
         default="",
+        subtype='FILE_PATH',
     )
-    addon_path: StringProperty(
-        name="Путь к исходникам",
-        description="Полный путь к директории с исходниками аддона",
-        default="",
-        subtype='DIR_PATH',
-    )
-    use_folder_name: BoolProperty(
-        name="Использовать имя папки",
-        description="Автоматически использовать имя папки как имя модуля",
-        default=True,
-    )
-
-    def update_module_name(self, context):
-        """Автоматически подставить имя модуля по имени папки."""
-        if self.addon_path and self.use_folder_name:
-            dir_name = os.path.basename(os.path.normpath(self.addon_path))
-            clean = ''.join(c for c in dir_name if (c.isalnum() or c == '_'))
-            if clean:
-                self.addon_module = clean
-            if context.area:
-                context.area.tag_redraw()
+    directory: StringProperty(name="Директория", subtype='DIR_PATH')
+    filter_folder: BoolProperty(default=True, options={'HIDDEN'})
+    filter_glob: StringProperty(default="__init__.py;*.py", options={'HIDDEN'})
 
     def invoke(self, context, event):
-        self.addon_module = ""
-        self.addon_path = ""
-        self.use_folder_name = True
-        return context.window_manager.invoke_props_dialog(self)
-
-    def draw(self, context):
-        layout = self.layout
-        layout.label(text="Выберите директорию с аддоном для разработки:")
-
-        box = layout.box()
-        row = box.row()
-        row.prop(self, "addon_path")
-        if not self.addon_path:
-            box.label(text="Укажите путь к директории с исходниками аддона", icon='INFO')
-
-        if self.addon_path and self.use_folder_name:
-            self.update_module_name(context)
-
-        nbox = layout.box()
-        nbox.prop(self, "use_folder_name")
-        nbox.prop(self, "addon_module")
-        if self.addon_path:
-            if self.use_folder_name:
-                nbox.label(text="Имя модуля взято из имени папки", icon='CHECKMARK')
-            else:
-                nbox.label(text="Введите желаемое имя модуля", icon='GREASEPENCIL')
-        else:
-            nbox.label(text="Сначала выберите путь к аддону", icon='ERROR')
+        # Открываем стандартный файловый браузер без промежуточных окон
+        context.window_manager.fileselect_add(self)
+        return {'RUNNING_MODAL'}
 
     def execute(self, context):
-        normalized_path = os.path.normpath(self.addon_path)
-        is_valid, error_message = AddonValidator.validate_addon_data(
-            self.addon_module, normalized_path, context
-        )
-        if not is_valid:
-            self.report({'ERROR'}, error_message)
+        # Если пользователь отменил выбор
+        chosen = os.path.normpath(self.filepath or self.directory or "")
+        if not chosen:
+            self.report({'WARNING'}, "Файл не выбран")
             return {'CANCELLED'}
 
-        AddonValidator.create_addon_item(context, self.addon_module, normalized_path)
+        # Получаем директорию аддона и его имя
+        addon_dir = chosen if os.path.isdir(chosen) else os.path.dirname(chosen)
+        addon_dir = os.path.normpath(addon_dir)
+        if not os.path.exists(addon_dir):
+            self.report({'ERROR'}, f"Путь не существует: {addon_dir}")
+            return {'CANCELLED'}
+        addon_name = os.path.basename(addon_dir)
+
+        # Здесь при желании можно добавить строгую проверку на __init__.py
+        # init_path = os.path.join(addon_dir, "__init__.py")
+        # if not os.path.exists(init_path): ...
+
+        # Проверка на дубликат
+        for item in context.scene.dev_toolkit_addons:
+            if item.name == addon_name:
+                self.report({'ERROR'}, f"Аддон {addon_name} уже в списке.")
+                return {'CANCELLED'}
+
+        AddonValidator.create_addon_item(context, addon_name, addon_dir)
         force_full_ui_refresh()
-        self.report({'INFO'}, f"Аддон {self.addon_module} добавлен в список")
+        self.report({'INFO'}, f"Аддон {addon_name} добавлен в список")
         return {'FINISHED'}
 
 
