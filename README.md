@@ -13,7 +13,7 @@ Tell me thanks.
 - 🧼 Eliminate the need for manual zipping and reinstalling during development
 
 ---
-**Refactor: simplify addon import workflow**
+**Refactor: simplify addon import workflow** (28.11.2025)
 
 - Removed redundant intermediate popup window  
 - Added a single operator that directly opens the file browser  
