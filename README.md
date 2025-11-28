@@ -13,6 +13,12 @@ Tell me thanks.
 - 🧼 Eliminate the need for manual zipping and reinstalling during development
 
 ---
+**Refactor: simplify addon import workflow**
+
+- Removed redundant intermediate popup window  
+- Added a single operator that directly opens the file browser  
+- Addon is now registered immediately after selecting `__init__.py`  
+---
 
 ## 📦 Features
 
